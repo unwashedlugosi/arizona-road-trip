@@ -46,32 +46,102 @@
       font-style: italic;
     }
 
-    .hero .route-summary {
-      margin-top: 32px;
+    .route-picker {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px 0;
       display: flex;
-      justify-content: center;
-      gap: 48px;
-      font-family: 'Helvetica Neue', sans-serif;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      gap: 16px;
     }
 
-    .hero .route-summary .stat-value {
-      font-size: 2rem;
-      display: block;
+    .route-btn {
+      flex: 1;
+      padding: 20px 16px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-align: left;
+      font-family: 'Georgia', serif;
+    }
+
+    .route-btn:hover {
+      border-color: #0f3460;
+    }
+
+    .route-btn.active {
+      border-color: #0f3460;
+      background: #0f3460;
+      color: white;
+    }
+
+    .route-btn .route-label {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
       margin-bottom: 4px;
+    }
+
+    .route-btn.active .route-label {
+      opacity: 0.8;
+    }
+
+    .route-btn .route-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .route-btn .route-desc {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      line-height: 1.4;
+    }
+
+    .route-content {
+      display: none;
+    }
+
+    .route-content.active {
+      display: block;
+    }
+
+    .route-summary-bar {
+      max-width: 900px;
+      margin: 24px auto 0;
+      padding: 0 24px;
+      display: flex;
+      gap: 32px;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+    }
+
+    .route-summary-bar .stat-value {
+      font-size: 1.3rem;
+      color: #2c2c2c;
+      display: block;
       font-weight: 300;
+      margin-bottom: 2px;
     }
 
     .overview-map-section {
-      padding: 0;
-      position: relative;
+      padding: 24px 24px 0;
+      max-width: 948px;
+      margin: 0 auto;
     }
 
     .overview-map {
       width: 100%;
       height: 400px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
     .day-section {
@@ -319,7 +389,8 @@
 
     @media (max-width: 600px) {
       .hero h1 { font-size: 2rem; }
-      .hero .route-summary { flex-wrap: wrap; gap: 24px; }
+      .route-picker { flex-direction: column; }
+      .route-summary-bar { flex-wrap: wrap; gap: 16px; }
       .day-section { padding: 40px 16px; }
       .day-stats { flex-wrap: wrap; gap: 16px; }
       .arrival-timeline { flex-direction: column; gap: 16px; }
@@ -331,266 +402,541 @@
 
   <div class="hero">
     <h1>NYC &rarr; Arizona</h1>
-    <div class="subtitle">March 12&ndash;15, 2026 &middot; A Route 66 Road Trip</div>
-    <div class="route-summary">
-      <div>
-        <span class="stat-value">2,430</span>
-        miles
+    <div class="subtitle">March 12&ndash;15, 2026 &middot; Pick Your Route</div>
+  </div>
+
+  <!-- ROUTE PICKER -->
+  <div class="route-picker">
+    <button class="route-btn active" onclick="switchRoute('south')" id="btn-south">
+      <div class="route-label">Option 1</div>
+      <div class="route-name">The Shenandoah &amp; Route 66</div>
+      <div class="route-desc">I-81 through Virginia &rarr; I-40 across Tennessee, Arkansas, Oklahoma, Texas panhandle, New Mexico &rarr; Arizona</div>
+    </button>
+    <button class="route-btn" onclick="switchRoute('north')" id="btn-north">
+      <div class="route-label">Option 2</div>
+      <div class="route-name">The Gateway &amp; Ozarks</div>
+      <div class="route-desc">PA Turnpike &rarr; I-70 through Ohio &rarr; I-44 through St. Louis, the Ozarks, and Tulsa &rarr; I-40 across the Texas panhandle &rarr; Arizona</div>
+    </button>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- OPTION 1: SHENANDOAH & ROUTE 66             -->
+  <!-- ============================================ -->
+  <div class="route-content active" id="route-south">
+
+    <div class="route-summary-bar">
+      <div><span class="stat-value">2,430</span> miles</div>
+      <div><span class="stat-value">4</span> days</div>
+      <div><span class="stat-value">3</span> nights</div>
+      <div><span class="stat-value">7</span> states</div>
+    </div>
+
+    <div class="overview-map-section">
+      <div id="overview-map-south" class="overview-map"></div>
+    </div>
+
+    <!-- DAY 1 -->
+    <div class="day-section day-1">
+      <div class="day-header">
+        <div class="day-badge">Day<br>1</div>
+        <div class="day-header-text">
+          <div class="day-route">Thursday, March 12</div>
+          <h2>New York &rarr; Cookeville, TN</h2>
+        </div>
       </div>
-      <div>
-        <span class="stat-value">4</span>
-        days
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 715 miles</span>
+        <span><span class="stat-icon">&#9201;</span> ~10.5 hours</span>
+        <span><span class="stat-icon">&#9788;</span> Depart 5:00 AM ET</span>
       </div>
-      <div>
-        <span class="stat-value">3</span>
-        nights
+      <div id="map-s-day1" class="day-map"></div>
+      <a class="directions-link" href="https://maps.apple.com/?daddr=Cookeville,+TN&saddr=New+York,+NY&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
+      <p class="day-narrative">
+        Beat the city traffic with a 5 AM start. You'll pick up I-78 west, then swing south onto I-81 through Pennsylvania and into Virginia's Shenandoah Valley — the prettiest stretch of the day, with the Blue Ridge on your left and rolling farmland on your right. Cross into Tennessee on I-81, then merge onto I-40 west past Knoxville to Cookeville. It's a long first day, but you'll gain an hour crossing into Central Time.
+      </p>
+      <ul class="stops-list">
+        <li>
+          <div class="stop-name">Harrisburg, PA (I-81 junction)</div>
+          <div class="stop-time">~8:00 AM ET</div>
+          <div class="stop-detail">Where you leave I-78 and pick up I-81 south. Good spot for a gas/coffee stop if you didn't grab any on the way out.</div>
+        </li>
+        <li>
+          <div class="stop-name">Shenandoah Valley (I-81, Virginia)</div>
+          <div class="stop-time">~9:30 AM &ndash; 12:00 PM ET</div>
+          <div class="stop-detail">No need to stop — just enjoy the views as you drive. The Blue Ridge Mountains line the horizon for over a hundred miles.</div>
+        </li>
+        <li>
+          <div class="stop-name">Lunch Stop &mdash; Wytheville / Bristol area</div>
+          <div class="stop-time">~12:00 &ndash; 12:45 PM ET</div>
+          <div class="stop-detail">About 7 hours in, southern Virginia or the VA/TN border. Plenty of options off I-81 exits.</div>
+        </li>
+        <li>
+          <div class="stop-name">Knoxville, TN (pass through)</div>
+          <div class="stop-time">~2:30 PM ET</div>
+          <div class="stop-detail">Where I-81 meets I-40. You're 80 miles from Cookeville here — almost done.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Arrive Cookeville, TN</div>
+          <div class="stop-time">~3:30 PM CT (gained 1 hour)</div>
+          <div class="stop-detail">Done for the day. Check in, find dinner, rest up.</div>
+        </li>
+      </ul>
+      <div class="hotel-card">
+        <div class="hotel-icon">&#127976;</div>
+        <div class="hotel-info">
+          <h4>Overnight</h4>
+          <p>Hampton Inn Cookeville, TN &mdash; <a href="https://maps.apple.com/?q=Hampton+Inn+Cookeville+TN" target="_blank" rel="noopener">Find on map</a></p>
+        </div>
       </div>
-      <div>
-        <span class="stat-value">7</span>
-        states
+    </div>
+
+    <hr class="day-divider">
+
+    <!-- DAY 2 -->
+    <div class="day-section day-2">
+      <div class="day-header">
+        <div class="day-badge">Day<br>2</div>
+        <div class="day-header-text">
+          <div class="day-route">Friday, March 13</div>
+          <h2>Cookeville &rarr; Oklahoma City</h2>
+        </div>
       </div>
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 700 miles</span>
+        <span><span class="stat-icon">&#9201;</span> ~10 hours</span>
+        <span><span class="stat-icon">&#9788;</span> Depart 7:00 AM CT</span>
+      </div>
+      <div id="map-s-day2" class="day-map"></div>
+      <a class="directions-link" href="https://maps.apple.com/?daddr=Oklahoma+City,+OK&saddr=Cookeville,+TN&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
+      <p class="day-narrative">
+        A straight shot west on I-40 all day. Nashville is only 80 miles in — too early for lunch but a good coffee stop if you want one. You'll pass through Memphis around mid-morning and cross the Mississippi River into Arkansas (look for the bridge views). Little Rock comes and goes, and then you're into Oklahoma. Arrive OKC by evening with time for a proper dinner.
+      </p>
+      <ul class="stops-list">
+        <li>
+          <div class="stop-name">Nashville, TN (pass through)</div>
+          <div class="stop-time">~8:15 AM CT</div>
+          <div class="stop-detail">Only 80 miles in — too early for lunch. Good for a quick coffee stop if you want one.</div>
+        </li>
+        <li>
+          <div class="stop-name">Mississippi River Crossing</div>
+          <div class="stop-time">~11:00 AM CT</div>
+          <div class="stop-detail">The I-40 bridge between Memphis and West Memphis, AR. A brief moment of grandeur on an otherwise flat stretch.</div>
+        </li>
+        <li>
+          <div class="stop-name">Lunch &mdash; Little Rock area</div>
+          <div class="stop-time">~12:30 PM CT</div>
+          <div class="stop-detail">About 5.5 hours in. Lots of options off I-40 / I-30.</div>
+        </li>
+        <li>
+          <div class="stop-name">Fort Smith, AR (pass through)</div>
+          <div class="stop-time">~3:00 PM CT</div>
+          <div class="stop-detail">Last stretch of Arkansas before crossing into Oklahoma.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Arrive Oklahoma City</div>
+          <div class="stop-time">~5:00 PM CT</div>
+          <div class="stop-detail">Check in, then head to dinner.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Dinner &mdash; Picasso Cafe</div>
+          <div class="stop-time">~6:00 PM CT</div>
+          <div class="stop-detail">Paseo Arts District, 5 min off I-40. Excellent vegetarian menu — roasted beet salad, veggie enchiladas, portobello dishes. A real restaurant, not highway food.</div>
+        </li>
+      </ul>
+      <div class="hotel-card">
+        <div class="hotel-icon">&#127976;</div>
+        <div class="hotel-info">
+          <h4>Overnight</h4>
+          <p>Hampton Inn Oklahoma City &mdash; <a href="https://maps.apple.com/?q=Hampton+Inn+Oklahoma+City+OK" target="_blank" rel="noopener">Find on map</a></p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="day-divider">
+
+    <!-- DAY 3 -->
+    <div class="day-section day-3">
+      <div class="day-header">
+        <div class="day-badge">Day<br>3</div>
+        <div class="day-header-text">
+          <div class="day-route">Saturday, March 14</div>
+          <h2>Oklahoma City &rarr; Gallup, NM</h2>
+        </div>
+      </div>
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 680 miles</span>
+        <span><span class="stat-icon">&#9201;</span> ~10 hours (with stops)</span>
+        <span><span class="stat-icon">&#9788;</span> Depart 7:00 AM CT</span>
+      </div>
+      <div id="map-s-day3" class="day-map"></div>
+      <a class="directions-link" href="https://maps.apple.com/?daddr=Gallup,+NM&saddr=Oklahoma+City,+OK&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
+      <p class="day-narrative">
+        The best day. I-40 from Oklahoma City to Gallup follows Route 66 almost exactly, and this stretch has the highest concentration of classic roadside Americana in the country. 2026 is Route 66's centennial year, so many of these spots have been freshened up. Take your time — the driving distance is moderate enough that you can actually stop and enjoy things.
+      </p>
+      <ul class="stops-list">
+        <li class="highlight">
+          <div class="stop-name">Pops Soda Shop &mdash; Arcadia, OK</div>
+          <div class="stop-time">~7:30 AM CT</div>
+          <div class="stop-detail">30 minutes from OKC. A 66-foot neon soda bottle towers over a modernist building stocked with 700+ varieties of soda from around the world. Grab something weird for the road. Right off the highway.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Route 66 Museum &mdash; Clinton, OK</div>
+          <div class="stop-time">~9:30 AM CT</div>
+          <div class="stop-detail">The best Route 66 museum on the entire route. Walk-through decades of Mother Road history. 20-30 minutes well spent. Exit 65 off I-40. Opens at 9 AM.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">U-Drop Inn &mdash; Shamrock, TX</div>
+          <div class="stop-time">~11:00 AM CT</div>
+          <div class="stop-detail">Art Deco gas station and diner, one of the most photographed buildings on Route 66. It inspired the Ramone's House of Body Art in Pixar's <em>Cars</em>. Right off the highway, 2 minutes for a photo.</div>
+        </li>
+        <li>
+          <div class="stop-name">Lunch &mdash; Amarillo, TX</div>
+          <div class="stop-time">~12:30 PM CT</div>
+          <div class="stop-detail">About 5.5 hours in. Plenty of vegetarian-friendly spots. Yellow City Street Food has a solid veggie menu.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Cadillac Ranch &mdash; Amarillo, TX</div>
+          <div class="stop-time">~1:15 PM CT</div>
+          <div class="stop-detail">Ten vintage Cadillacs buried nose-first in a cotton field. Free. 5 minutes off I-40 (exit 60). People spray paint them constantly so they always look different. Bring a can if you want.</div>
+        </li>
+        <li>
+          <div class="stop-name">Midpoint of Route 66 &mdash; Adrian, TX</div>
+          <div class="stop-time">~1:45 PM CT</div>
+          <div class="stop-detail">The geographic center of Route 66. The Midpoint Cafe has a sign and a photo op. Quick stop if you feel like it.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Tucumcari, NM &mdash; Neon Capital of Route 66</div>
+          <div class="stop-time">~3:00 PM MT (gained 1 hour)</div>
+          <div class="stop-detail">Cross into Mountain Time here. The Blue Swallow Motel and a dozen other vintage neon signs line the old highway. Worth a slow drive through town even in daylight.</div>
+        </li>
+        <li>
+          <div class="stop-name">Dinner &mdash; Gallup, NM</div>
+          <div class="stop-time">~6:00 PM MT</div>
+          <div class="stop-detail">Gallup is a Route 66 town with a strong Native American art scene. Jerry's Cafe for New Mexican food (green chile everything, cheese enchiladas). Or Earl's for similar fare.</div>
+        </li>
+      </ul>
+      <div class="hotel-card">
+        <div class="hotel-icon">&#127976;</div>
+        <div class="hotel-info">
+          <h4>Overnight</h4>
+          <p>Hampton Inn Gallup, NM &mdash; <a href="https://maps.apple.com/?q=Hampton+Inn+Gallup+NM" target="_blank" rel="noopener">Find on map</a></p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="day-divider">
+
+    <!-- DAY 4 -->
+    <div class="day-section day-4">
+      <div class="day-header">
+        <div class="day-badge">Day<br>4</div>
+        <div class="day-header-text">
+          <div class="day-route">Sunday, March 15</div>
+          <h2>Gallup &rarr; Phoenix</h2>
+        </div>
+      </div>
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 335 miles</span>
+        <span><span class="stat-icon">&#9201;</span> ~5 hours</span>
+        <span><span class="stat-icon">&#9788;</span> Depart 4:00 AM MT</span>
+      </div>
+      <div id="map-s-day4" class="day-map"></div>
+      <a class="directions-link" href="https://maps.apple.com/?daddr=Phoenix+Sky+Harbor+Airport,+AZ&saddr=Gallup,+NM&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
+      <p class="day-narrative">
+        Early start, short day. You'll drive in the dark for the first couple hours, but as the sun comes up you'll be crossing the Painted Desert — one of the most striking desert landscapes in the country, with bands of red, orange, purple, and white striped across the terrain. Continue on I-40 through Winslow and Flagstaff, then south on I-17 through red rock country to the Valley. Arizona doesn't observe daylight saving time, so it's the same as Mountain Time in March — no clock change. You'll be at PHX by 9 AM.
+      </p>
+      <ul class="stops-list">
+        <li>
+          <div class="stop-name">Painted Desert (sunrise)</div>
+          <div class="stop-time">~5:45 AM AZ</div>
+          <div class="stop-detail">If timing works, the sunrise over the Painted Desert from I-40 is extraordinary. No stop needed — it's visible from the highway.</div>
+        </li>
+        <li>
+          <div class="stop-name">Winslow, AZ (pass through)</div>
+          <div class="stop-time">~6:15 AM AZ</div>
+          <div class="stop-detail">"Standin' on the Corner" park — the Eagles' "Take It Easy" tribute. At this hour it'll be quiet but the statue is always there if you want to stretch your legs.</div>
+        </li>
+        <li>
+          <div class="stop-name">Flagstaff &rarr; I-17 South</div>
+          <div class="stop-time">~7:00 AM AZ</div>
+          <div class="stop-detail">The highway drops from 7,000 feet through pine forests and red rock terrain down to the desert floor. One of Arizona's best driving stretches.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Phoenix Sky Harbor Airport</div>
+          <div class="stop-time">~9:00 AM AZ</div>
+          <div class="stop-detail">Delta DL 791 lands at 10:49 AM. Liz, Sam, and Max. You'll have almost two hours to park, grab a coffee, and be at the gate.</div>
+        </li>
+      </ul>
     </div>
   </div>
 
-  <div class="overview-map-section">
-    <div id="overview-map" class="overview-map"></div>
+  <!-- ============================================ -->
+  <!-- OPTION 2: GATEWAY & OZARKS                   -->
+  <!-- ============================================ -->
+  <div class="route-content" id="route-north">
+
+    <div class="route-summary-bar">
+      <div><span class="stat-value">2,450</span> miles</div>
+      <div><span class="stat-value">4</span> days</div>
+      <div><span class="stat-value">3</span> nights</div>
+      <div><span class="stat-value">8</span> states</div>
+    </div>
+
+    <div class="overview-map-section">
+      <div id="overview-map-north" class="overview-map"></div>
+    </div>
+
+    <!-- DAY 1 -->
+    <div class="day-section day-1">
+      <div class="day-header">
+        <div class="day-badge">Day<br>1</div>
+        <div class="day-header-text">
+          <div class="day-route">Thursday, March 12</div>
+          <h2>New York &rarr; Indianapolis</h2>
+        </div>
+      </div>
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 720 miles</span>
+        <span><span class="stat-icon">&#9201;</span> ~10.5 hours</span>
+        <span><span class="stat-icon">&#9788;</span> Depart 5:00 AM ET</span>
+      </div>
+      <div id="map-n-day1" class="day-map"></div>
+      <a class="directions-link" href="https://maps.apple.com/?daddr=Indianapolis,+IN&saddr=New+York,+NY&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
+      <p class="day-narrative">
+        A due-west push across the top of the country. You'll take I-78 to the Pennsylvania Turnpike, then I-70 through the rolling hills of southern Pennsylvania and across Ohio's farmland. Columbus makes a good lunch stop, then it's a straight shot into Indianapolis. You'll gain an hour crossing into Central Time. Flatter and faster than the Shenandoah route, but there's something meditative about the big open Midwest sky.
+      </p>
+      <ul class="stops-list">
+        <li>
+          <div class="stop-name">Pennsylvania Turnpike (I-76)</div>
+          <div class="stop-time">~6:00 AM &ndash; 9:00 AM ET</div>
+          <div class="stop-detail">Rolling Pennsylvania hills and farmland. The turnpike service plazas are reliable for gas and coffee.</div>
+        </li>
+        <li>
+          <div class="stop-name">Breezewood, PA (I-76 &rarr; I-70)</div>
+          <div class="stop-time">~9:30 AM ET</div>
+          <div class="stop-detail">The "Town of Motels" — a famous strip of gas stations and fast food where the turnpike dumps you onto I-70. Quick gas stop.</div>
+        </li>
+        <li>
+          <div class="stop-name">Lunch &mdash; Columbus, OH</div>
+          <div class="stop-time">~12:30 PM ET</div>
+          <div class="stop-detail">About 7.5 hours in. The Short North district has good food if you exit briefly — Northstar Cafe is an all-vegetarian spot right off the highway.</div>
+        </li>
+        <li>
+          <div class="stop-name">Dayton, OH (pass through)</div>
+          <div class="stop-time">~2:00 PM ET</div>
+          <div class="stop-detail">Wright Brothers' hometown. The National Museum of the US Air Force is here if you ever come back with more time.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Arrive Indianapolis</div>
+          <div class="stop-time">~3:15 PM CT (gained 1 hour)</div>
+          <div class="stop-detail">Check in, early dinner. Indianapolis has a surprisingly good food scene.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Dinner &mdash; Broad Ripple or Mass Ave</div>
+          <div class="stop-time">~5:30 PM CT</div>
+          <div class="stop-detail">Three Carrots is an entirely vegetarian restaurant on Mass Ave. Great veggie burgers, bowls, and seasonal plates. Or just explore — Indy's food scene punches above its weight.</div>
+        </li>
+      </ul>
+      <div class="hotel-card">
+        <div class="hotel-icon">&#127976;</div>
+        <div class="hotel-info">
+          <h4>Overnight</h4>
+          <p>Hampton Inn Indianapolis &mdash; <a href="https://maps.apple.com/?q=Hampton+Inn+Indianapolis+IN" target="_blank" rel="noopener">Find on map</a></p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="day-divider">
+
+    <!-- DAY 2 -->
+    <div class="day-section day-2">
+      <div class="day-header">
+        <div class="day-badge">Day<br>2</div>
+        <div class="day-header-text">
+          <div class="day-route">Friday, March 13</div>
+          <h2>Indianapolis &rarr; Oklahoma City</h2>
+        </div>
+      </div>
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 690 miles</span>
+        <span><span class="stat-icon">&#9201;</span> ~10.5 hours</span>
+        <span><span class="stat-icon">&#9788;</span> Depart 7:00 AM CT</span>
+      </div>
+      <div id="map-n-day2" class="day-map"></div>
+      <a class="directions-link" href="https://maps.apple.com/?daddr=Oklahoma+City,+OK&saddr=Indianapolis,+IN&dirflg=d&t=m&via=St.+Louis,+MO" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
+      <p class="day-narrative">
+        The highlight day of this route. I-70 takes you to St. Louis where the Gateway Arch towers over the Mississippi — it's visible from the highway but worth a quick detour to see up close. Then you pick up I-44 southwest, which follows the original Route 66 through the Missouri Ozarks. This stretch is surprisingly hilly and winding, cutting through forested ridges and small towns. Past Joplin you'll roll through Tulsa — the Art Deco capital of the southwest — before the Turner Turnpike delivers you to OKC.
+      </p>
+      <ul class="stops-list">
+        <li>
+          <div class="stop-name">Terre Haute, IN (pass through)</div>
+          <div class="stop-time">~8:15 AM CT</div>
+          <div class="stop-detail">Last stretch of Indiana before crossing into Illinois.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Gateway Arch &mdash; St. Louis, MO</div>
+          <div class="stop-time">~10:30 AM CT</div>
+          <div class="stop-detail">The 630-foot stainless steel arch is visible from I-70 as you cross the Mississippi. If you want to see it up close, exit at Washington Ave — it's a 10-minute detour. Even from the highway it's impressive.</div>
+        </li>
+        <li>
+          <div class="stop-name">I-44 begins &mdash; Route 66 country</div>
+          <div class="stop-time">~11:00 AM CT</div>
+          <div class="stop-detail">I-44 southwest from St. Louis IS the original Route 66 corridor through Missouri. The landscape shifts to wooded Ozark hills — a nice change from the flat interstate so far.</div>
+        </li>
+        <li>
+          <div class="stop-name">Lunch &mdash; Springfield, MO</div>
+          <div class="stop-time">~1:30 PM CT</div>
+          <div class="stop-detail">The "Birthplace of Route 66" — where the name was proposed in 1926. Good lunch stop about 6.5 hours in. Lots of options off I-44.</div>
+        </li>
+        <li>
+          <div class="stop-name">Joplin, MO (pass through)</div>
+          <div class="stop-time">~2:30 PM CT</div>
+          <div class="stop-detail">Last Missouri town before Oklahoma. Historic Route 66 murals downtown if you want a quick stretch.</div>
+        </li>
+        <li>
+          <div class="stop-name">Tulsa, OK (pass through)</div>
+          <div class="stop-time">~4:00 PM CT</div>
+          <div class="stop-detail">The Art Deco capital of the Southwest. If you glance at the skyline, the Boston Avenue Methodist Church and Philtower are gorgeous examples. I-44 skirts the edge of downtown.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Arrive Oklahoma City</div>
+          <div class="stop-time">~5:30 PM CT</div>
+          <div class="stop-detail">Check in, then dinner.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Dinner &mdash; Picasso Cafe</div>
+          <div class="stop-time">~6:30 PM CT</div>
+          <div class="stop-detail">Paseo Arts District, 5 min off I-40. Excellent vegetarian menu — roasted beet salad, veggie enchiladas, portobello dishes. A real restaurant, not highway food.</div>
+        </li>
+      </ul>
+      <div class="hotel-card">
+        <div class="hotel-icon">&#127976;</div>
+        <div class="hotel-info">
+          <h4>Overnight</h4>
+          <p>Hampton Inn Oklahoma City &mdash; <a href="https://maps.apple.com/?q=Hampton+Inn+Oklahoma+City+OK" target="_blank" rel="noopener">Find on map</a></p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="day-divider">
+
+    <!-- DAY 3 -->
+    <div class="day-section day-3">
+      <div class="day-header">
+        <div class="day-badge">Day<br>3</div>
+        <div class="day-header-text">
+          <div class="day-route">Saturday, March 14</div>
+          <h2>Oklahoma City &rarr; Gallup, NM</h2>
+        </div>
+      </div>
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 680 miles</span>
+        <span><span class="stat-icon">&#9201;</span> ~10 hours (with stops)</span>
+        <span><span class="stat-icon">&#9788;</span> Depart 7:00 AM CT</span>
+      </div>
+      <div id="map-n-day3" class="day-map"></div>
+      <a class="directions-link" href="https://maps.apple.com/?daddr=Gallup,+NM&saddr=Oklahoma+City,+OK&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
+      <p class="day-narrative">
+        Both routes converge here — and for good reason. I-40 from OKC to Gallup is the heart of Route 66, and there's no better way across. The flat Oklahoma plains give way to the Texas panhandle, then the mesas and red earth of New Mexico. This stretch has the best roadside stops of the entire trip.
+      </p>
+      <ul class="stops-list">
+        <li class="highlight">
+          <div class="stop-name">Pops Soda Shop &mdash; Arcadia, OK</div>
+          <div class="stop-time">~7:30 AM CT</div>
+          <div class="stop-detail">30 minutes from OKC. A 66-foot neon soda bottle towers over a modernist building stocked with 700+ varieties of soda from around the world. Grab something weird for the road.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Route 66 Museum &mdash; Clinton, OK</div>
+          <div class="stop-time">~9:30 AM CT</div>
+          <div class="stop-detail">The best Route 66 museum on the entire route. Walk-through decades of Mother Road history. 20-30 minutes well spent. Opens at 9 AM.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">U-Drop Inn &mdash; Shamrock, TX</div>
+          <div class="stop-time">~11:00 AM CT</div>
+          <div class="stop-detail">Art Deco gas station and diner. It inspired the Ramone's House of Body Art in Pixar's <em>Cars</em>. 2 minutes for a photo.</div>
+        </li>
+        <li>
+          <div class="stop-name">Lunch &mdash; Amarillo, TX</div>
+          <div class="stop-time">~12:30 PM CT</div>
+          <div class="stop-detail">About 5.5 hours in. Yellow City Street Food has a solid veggie menu.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Cadillac Ranch &mdash; Amarillo, TX</div>
+          <div class="stop-time">~1:15 PM CT</div>
+          <div class="stop-detail">Ten Cadillacs buried nose-first in a cotton field. Free. 5 minutes off I-40. Bring a spray can if you want.</div>
+        </li>
+        <li>
+          <div class="stop-name">Midpoint of Route 66 &mdash; Adrian, TX</div>
+          <div class="stop-time">~1:45 PM CT</div>
+          <div class="stop-detail">The geographic center of Route 66. Quick photo op at the Midpoint Cafe.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Tucumcari, NM</div>
+          <div class="stop-time">~3:00 PM MT (gained 1 hour)</div>
+          <div class="stop-detail">Cross into Mountain Time. Vintage neon motel signs line the old highway — the Blue Swallow Motel is the most famous.</div>
+        </li>
+        <li>
+          <div class="stop-name">Dinner &mdash; Gallup, NM</div>
+          <div class="stop-time">~6:00 PM MT</div>
+          <div class="stop-detail">Jerry's Cafe for New Mexican food (green chile cheese enchiladas). Or Earl's for similar fare.</div>
+        </li>
+      </ul>
+      <div class="hotel-card">
+        <div class="hotel-icon">&#127976;</div>
+        <div class="hotel-info">
+          <h4>Overnight</h4>
+          <p>Hampton Inn Gallup, NM &mdash; <a href="https://maps.apple.com/?q=Hampton+Inn+Gallup+NM" target="_blank" rel="noopener">Find on map</a></p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="day-divider">
+
+    <!-- DAY 4 -->
+    <div class="day-section day-4">
+      <div class="day-header">
+        <div class="day-badge">Day<br>4</div>
+        <div class="day-header-text">
+          <div class="day-route">Sunday, March 15</div>
+          <h2>Gallup &rarr; Phoenix</h2>
+        </div>
+      </div>
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 335 miles</span>
+        <span><span class="stat-icon">&#9201;</span> ~5 hours</span>
+        <span><span class="stat-icon">&#9788;</span> Depart 4:00 AM MT</span>
+      </div>
+      <div id="map-n-day4" class="day-map"></div>
+      <a class="directions-link" href="https://maps.apple.com/?daddr=Phoenix+Sky+Harbor+Airport,+AZ&saddr=Gallup,+NM&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
+      <p class="day-narrative">
+        Early start, short day. You'll drive in the dark for the first couple hours, but as the sun comes up you'll be crossing the Painted Desert. Continue on I-40 through Winslow and Flagstaff, then south on I-17 through red rock country to the Valley. Arizona doesn't observe daylight saving time — same as Mountain Time in March. You'll be at PHX by 9 AM.
+      </p>
+      <ul class="stops-list">
+        <li>
+          <div class="stop-name">Painted Desert (sunrise)</div>
+          <div class="stop-time">~5:45 AM AZ</div>
+          <div class="stop-detail">The sunrise over the Painted Desert from I-40 is extraordinary. No stop needed — it's visible from the highway.</div>
+        </li>
+        <li>
+          <div class="stop-name">Winslow, AZ (pass through)</div>
+          <div class="stop-time">~6:15 AM AZ</div>
+          <div class="stop-detail">"Standin' on the Corner" park — the Eagles' "Take It Easy" tribute. Quick stretch if you want it.</div>
+        </li>
+        <li>
+          <div class="stop-name">Flagstaff &rarr; I-17 South</div>
+          <div class="stop-time">~7:00 AM AZ</div>
+          <div class="stop-detail">The highway drops from 7,000 feet through pine forests and red rock terrain down to the desert floor.</div>
+        </li>
+        <li class="highlight">
+          <div class="stop-name">Phoenix Sky Harbor Airport</div>
+          <div class="stop-time">~9:00 AM AZ</div>
+          <div class="stop-detail">Delta DL 791 lands at 10:49 AM. Liz, Sam, and Max. Almost two hours to park, grab a coffee, and be at the gate.</div>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <!-- DAY 1 -->
-  <div class="day-section day-1">
-    <div class="day-header">
-      <div class="day-badge">Day<br>1</div>
-      <div class="day-header-text">
-        <div class="day-route">Thursday, March 12</div>
-        <h2>New York &rarr; Cookeville, TN</h2>
-      </div>
-    </div>
-    <div class="day-stats">
-      <span><span class="stat-icon">&#9673;</span> 715 miles</span>
-      <span><span class="stat-icon">&#9201;</span> ~10.5 hours</span>
-      <span><span class="stat-icon">&#9788;</span> Depart 5:00 AM ET</span>
-    </div>
-    <div id="map-day1" class="day-map"></div>
-    <a class="directions-link" href="https://maps.apple.com/?daddr=Cookeville,+TN&saddr=New+York,+NY&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
-    <p class="day-narrative">
-      Beat the city traffic with a 5 AM start. You'll pick up I-78 west, then swing south onto I-81 through Pennsylvania and into Virginia's Shenandoah Valley — the prettiest stretch of the day, with the Blue Ridge on your left and rolling farmland on your right. Cross into Tennessee on I-81, then merge onto I-40 west past Knoxville to Cookeville. It's a long first day, but you'll gain an hour crossing into Central Time.
-    </p>
-    <ul class="stops-list">
-      <li>
-        <div class="stop-name">Harrisburg, PA (I-81 junction)</div>
-        <div class="stop-time">~8:00 AM ET</div>
-        <div class="stop-detail">Where you leave I-78 and pick up I-81 south. Good spot for a gas/coffee stop if you didn't grab any on the way out.</div>
-      </li>
-      <li>
-        <div class="stop-name">Shenandoah Valley (I-81, Virginia)</div>
-        <div class="stop-time">~9:30 AM &ndash; 12:00 PM ET</div>
-        <div class="stop-detail">No need to stop — just enjoy the views as you drive. The Blue Ridge Mountains line the horizon for over a hundred miles.</div>
-      </li>
-      <li>
-        <div class="stop-name">Lunch Stop &mdash; Wytheville / Bristol area</div>
-        <div class="stop-time">~12:00 &ndash; 12:45 PM ET</div>
-        <div class="stop-detail">About 7 hours in, southern Virginia or the VA/TN border. Plenty of options off I-81 exits.</div>
-      </li>
-      <li>
-        <div class="stop-name">Knoxville, TN (pass through)</div>
-        <div class="stop-time">~2:30 PM ET</div>
-        <div class="stop-detail">Where I-81 meets I-40. You're 80 miles from Cookeville here — almost done.</div>
-      </li>
-      <li class="highlight">
-        <div class="stop-name">Arrive Cookeville, TN</div>
-        <div class="stop-time">~3:30 PM CT (gained 1 hour)</div>
-        <div class="stop-detail">Done for the day. Check in, find dinner, rest up.</div>
-      </li>
-    </ul>
-    <div class="hotel-card">
-      <div class="hotel-icon">&#127976;</div>
-      <div class="hotel-info">
-        <h4>Overnight</h4>
-        <p>Hampton Inn Cookeville, TN &mdash; <a href="https://maps.apple.com/?q=Hampton+Inn+Cookeville+TN" target="_blank" rel="noopener">Find on map</a></p>
-      </div>
-    </div>
-  </div>
-
-  <hr class="day-divider">
-
-  <!-- DAY 2 -->
-  <div class="day-section day-2">
-    <div class="day-header">
-      <div class="day-badge">Day<br>2</div>
-      <div class="day-header-text">
-        <div class="day-route">Friday, March 13</div>
-        <h2>Cookeville &rarr; Oklahoma City</h2>
-      </div>
-    </div>
-    <div class="day-stats">
-      <span><span class="stat-icon">&#9673;</span> 700 miles</span>
-      <span><span class="stat-icon">&#9201;</span> ~10 hours</span>
-      <span><span class="stat-icon">&#9788;</span> Depart 7:00 AM CT</span>
-    </div>
-    <div id="map-day2" class="day-map"></div>
-    <a class="directions-link" href="https://maps.apple.com/?daddr=Oklahoma+City,+OK&saddr=Cookeville,+TN&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
-    <p class="day-narrative">
-      A straight shot west on I-40 all day. Nashville is only 80 miles in — too early for lunch but a good coffee stop if you want one. You'll pass through Memphis around mid-morning and cross the Mississippi River into Arkansas (look for the bridge views). Little Rock comes and goes, and then you're into Oklahoma. Arrive OKC by evening with time for a proper dinner.
-    </p>
-    <ul class="stops-list">
-      <li>
-        <div class="stop-name">Nashville, TN (pass through)</div>
-        <div class="stop-time">~8:15 AM CT</div>
-        <div class="stop-detail">Only 80 miles in — too early for lunch. Good for a quick coffee stop if you want one.</div>
-      </li>
-      <li>
-        <div class="stop-name">Mississippi River Crossing</div>
-        <div class="stop-time">~11:00 AM CT</div>
-        <div class="stop-detail">The I-40 bridge between Memphis and West Memphis, AR. A brief moment of grandeur on an otherwise flat stretch.</div>
-      </li>
-      <li>
-        <div class="stop-name">Lunch &mdash; Little Rock area</div>
-        <div class="stop-time">~12:30 PM CT</div>
-        <div class="stop-detail">About 5.5 hours in. Lots of options off I-40 / I-30.</div>
-      </li>
-      <li>
-        <div class="stop-name">Fort Smith, AR (pass through)</div>
-        <div class="stop-time">~3:00 PM CT</div>
-        <div class="stop-detail">Last stretch of Arkansas before crossing into Oklahoma.</div>
-      </li>
-      <li class="highlight">
-        <div class="stop-name">Arrive Oklahoma City</div>
-        <div class="stop-time">~5:00 PM CT</div>
-        <div class="stop-detail">Check in, then head to dinner.</div>
-      </li>
-      <li class="highlight">
-        <div class="stop-name">Dinner &mdash; Picasso Cafe</div>
-        <div class="stop-time">~6:00 PM CT</div>
-        <div class="stop-detail">Paseo Arts District, 5 min off I-40. Excellent vegetarian menu — roasted beet salad, veggie enchiladas, portobello dishes. A real restaurant, not highway food.</div>
-      </li>
-    </ul>
-    <div class="hotel-card">
-      <div class="hotel-icon">&#127976;</div>
-      <div class="hotel-info">
-        <h4>Overnight</h4>
-        <p>Hampton Inn Oklahoma City &mdash; <a href="https://maps.apple.com/?q=Hampton+Inn+Oklahoma+City+OK" target="_blank" rel="noopener">Find on map</a></p>
-      </div>
-    </div>
-  </div>
-
-  <hr class="day-divider">
-
-  <!-- DAY 3 -->
-  <div class="day-section day-3">
-    <div class="day-header">
-      <div class="day-badge">Day<br>3</div>
-      <div class="day-header-text">
-        <div class="day-route">Saturday, March 14</div>
-        <h2>Oklahoma City &rarr; Gallup, NM</h2>
-      </div>
-    </div>
-    <div class="day-stats">
-      <span><span class="stat-icon">&#9673;</span> 680 miles</span>
-      <span><span class="stat-icon">&#9201;</span> ~10 hours (with stops)</span>
-      <span><span class="stat-icon">&#9788;</span> Depart 7:00 AM CT</span>
-    </div>
-    <div id="map-day3" class="day-map"></div>
-    <a class="directions-link" href="https://maps.apple.com/?daddr=Gallup,+NM&saddr=Oklahoma+City,+OK&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
-    <p class="day-narrative">
-      The best day. I-40 from Oklahoma City to Gallup follows Route 66 almost exactly, and this stretch has the highest concentration of classic roadside Americana in the country. 2026 is Route 66's centennial year, so many of these spots have been freshened up. Take your time — the driving distance is moderate enough that you can actually stop and enjoy things.
-    </p>
-    <ul class="stops-list">
-      <li class="highlight">
-        <div class="stop-name">Pops Soda Shop &mdash; Arcadia, OK</div>
-        <div class="stop-time">~7:30 AM CT</div>
-        <div class="stop-detail">30 minutes from OKC. A 66-foot neon soda bottle towers over a modernist building stocked with 700+ varieties of soda from around the world. Grab something weird for the road. Right off the highway.</div>
-      </li>
-      <li class="highlight">
-        <div class="stop-name">Route 66 Museum &mdash; Clinton, OK</div>
-        <div class="stop-time">~9:30 AM CT</div>
-        <div class="stop-detail">The best Route 66 museum on the entire route. Walk-through decades of Mother Road history. 20-30 minutes well spent. Exit 65 off I-40. Opens at 9 AM.</div>
-      </li>
-      <li class="highlight">
-        <div class="stop-name">U-Drop Inn &mdash; Shamrock, TX</div>
-        <div class="stop-time">~11:00 AM CT</div>
-        <div class="stop-detail">Art Deco gas station and diner, one of the most photographed buildings on Route 66. It inspired the Ramone's House of Body Art in Pixar's <em>Cars</em>. Right off the highway, 2 minutes for a photo.</div>
-      </li>
-      <li>
-        <div class="stop-name">Lunch &mdash; Amarillo, TX</div>
-        <div class="stop-time">~12:30 PM CT</div>
-        <div class="stop-detail">About 5.5 hours in. Plenty of vegetarian-friendly spots. Yellow City Street Food has a solid veggie menu.</div>
-      </li>
-      <li class="highlight">
-        <div class="stop-name">Cadillac Ranch &mdash; Amarillo, TX</div>
-        <div class="stop-time">~1:15 PM CT</div>
-        <div class="stop-detail">Ten vintage Cadillacs buried nose-first in a cotton field. Free. 5 minutes off I-40 (exit 60). People spray paint them constantly so they always look different. Bring a can if you want.</div>
-      </li>
-      <li>
-        <div class="stop-name">Midpoint of Route 66 &mdash; Adrian, TX</div>
-        <div class="stop-time">~1:45 PM CT</div>
-        <div class="stop-detail">The geographic center of Route 66. The Midpoint Cafe has a sign and a photo op. Quick stop if you feel like it.</div>
-      </li>
-      <li class="highlight">
-        <div class="stop-name">Tucumcari, NM &mdash; Neon Capital of Route 66</div>
-        <div class="stop-time">~3:00 PM MT (gained 1 hour)</div>
-        <div class="stop-detail">Cross into Mountain Time here. The Blue Swallow Motel and a dozen other vintage neon signs line the old highway. Worth a slow drive through town even in daylight.</div>
-      </li>
-      <li>
-        <div class="stop-name">Dinner &mdash; Gallup, NM</div>
-        <div class="stop-time">~6:00 PM MT</div>
-        <div class="stop-detail">Gallup is a Route 66 town with a strong Native American art scene. Jerry's Cafe for New Mexican food (green chile everything, cheese enchiladas). Or Earl's for similar fare.</div>
-      </li>
-    </ul>
-    <div class="hotel-card">
-      <div class="hotel-icon">&#127976;</div>
-      <div class="hotel-info">
-        <h4>Overnight</h4>
-        <p>Hampton Inn Gallup, NM &mdash; <a href="https://maps.apple.com/?q=Hampton+Inn+Gallup+NM" target="_blank" rel="noopener">Find on map</a></p>
-      </div>
-    </div>
-  </div>
-
-  <hr class="day-divider">
-
-  <!-- DAY 4 -->
-  <div class="day-section day-4">
-    <div class="day-header">
-      <div class="day-badge">Day<br>4</div>
-      <div class="day-header-text">
-        <div class="day-route">Sunday, March 15</div>
-        <h2>Gallup &rarr; Phoenix</h2>
-      </div>
-    </div>
-    <div class="day-stats">
-      <span><span class="stat-icon">&#9673;</span> 335 miles</span>
-      <span><span class="stat-icon">&#9201;</span> ~5 hours</span>
-      <span><span class="stat-icon">&#9788;</span> Depart 4:00 AM MT</span>
-    </div>
-    <div id="map-day4" class="day-map"></div>
-    <a class="directions-link" href="https://maps.apple.com/?daddr=Phoenix+Sky+Harbor+Airport,+AZ&saddr=Gallup,+NM&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
-    <p class="day-narrative">
-      Early start, short day. You'll drive in the dark for the first couple hours, but as the sun comes up you'll be crossing the Painted Desert — one of the most striking desert landscapes in the country, with bands of red, orange, purple, and white striped across the terrain. Continue on I-40 through Winslow and Flagstaff, then south on I-17 through red rock country to the Valley. Arizona doesn't observe daylight saving time, so it's the same as Mountain Time in March — no clock change. You'll be at PHX by 9 AM.
-    </p>
-    <ul class="stops-list">
-      <li>
-        <div class="stop-name">Painted Desert (sunrise)</div>
-        <div class="stop-time">~5:45 AM AZ</div>
-        <div class="stop-detail">If timing works, the sunrise over the Painted Desert from I-40 is extraordinary. No stop needed — it's visible from the highway.</div>
-      </li>
-      <li>
-        <div class="stop-name">Winslow, AZ (pass through)</div>
-        <div class="stop-time">~6:15 AM AZ</div>
-        <div class="stop-detail">"Standin' on the Corner" park — the Eagles' "Take It Easy" tribute. At this hour it'll be quiet but the statue is always there if you want to stretch your legs.</div>
-      </li>
-      <li>
-        <div class="stop-name">Flagstaff &rarr; I-17 South</div>
-        <div class="stop-time">~7:00 AM AZ</div>
-        <div class="stop-detail">The highway drops from 7,000 feet through pine forests and red rock terrain down to the desert floor. One of Arizona's best driving stretches.</div>
-      </li>
-      <li class="highlight">
-        <div class="stop-name">Phoenix Sky Harbor Airport</div>
-        <div class="stop-time">~9:00 AM AZ</div>
-        <div class="stop-detail">Delta DL 791 lands at 10:49 AM. Liz, Sam, and Max. You'll have almost two hours to park, grab a coffee, and be at the gate.</div>
-      </li>
-    </ul>
-  </div>
-
-  <!-- ARRIVAL -->
+  <!-- ARRIVAL (shared) -->
   <div class="arrival-section">
     <h2>You Made It</h2>
     <p>Pick up the family, then the real trip begins.</p>
@@ -616,120 +962,211 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    // Route data with times
-    const days = [
-      {
-        id: 'day1',
-        color: '#1a1a2e',
-        waypoints: [
-          { lat: 40.7128, lng: -74.0060, label: 'New York City — 5:00 AM' },
-          { lat: 39.9610, lng: -76.7307, label: 'Harrisburg, PA — ~8:00 AM' },
-          { lat: 38.9496, lng: -78.1950, label: 'Shenandoah Valley — ~9:30 AM' },
-          { lat: 37.0299, lng: -80.6229, label: 'Wytheville, VA — ~12:00 PM' },
-          { lat: 36.5641, lng: -82.5618, label: 'Kingsport, TN — ~1:15 PM' },
-          { lat: 35.9606, lng: -83.9207, label: 'Knoxville, TN — ~2:30 PM' },
-          { lat: 36.1628, lng: -85.5016, label: 'Cookeville, TN — ~3:30 PM CT' }
+    // ---- ROUTE DATA ----
+
+    const routeData = {
+      south: {
+        overview: 'overview-map-south',
+        days: [
+          {
+            id: 'map-s-day1',
+            color: '#1a1a2e',
+            waypoints: [
+              { lat: 40.7128, lng: -74.0060, label: 'New York City — 5:00 AM' },
+              { lat: 40.2732, lng: -76.8867, label: 'Harrisburg, PA — ~8:00 AM' },
+              { lat: 38.9496, lng: -78.1950, label: 'Shenandoah Valley — ~9:30 AM' },
+              { lat: 37.0299, lng: -80.6229, label: 'Wytheville, VA — ~12:00 PM' },
+              { lat: 36.5641, lng: -82.5618, label: 'Kingsport, TN — ~1:15 PM' },
+              { lat: 35.9606, lng: -83.9207, label: 'Knoxville, TN — ~2:30 PM' },
+              { lat: 36.1628, lng: -85.5016, label: 'Cookeville, TN — ~3:30 PM CT' }
+            ]
+          },
+          {
+            id: 'map-s-day2',
+            color: '#e94560',
+            waypoints: [
+              { lat: 36.1628, lng: -85.5016, label: 'Cookeville, TN — 7:00 AM' },
+              { lat: 36.1627, lng: -86.7816, label: 'Nashville, TN — ~8:15 AM' },
+              { lat: 35.1495, lng: -90.0490, label: 'Memphis, TN — ~11:00 AM' },
+              { lat: 34.7465, lng: -92.2896, label: 'Little Rock, AR — ~12:30 PM' },
+              { lat: 35.2226, lng: -94.3993, label: 'Fort Smith, AR — ~3:00 PM' },
+              { lat: 35.4676, lng: -97.5164, label: 'Oklahoma City — ~5:00 PM' }
+            ]
+          },
+          {
+            id: 'map-s-day3',
+            color: '#0f3460',
+            waypoints: [
+              { lat: 35.4676, lng: -97.5164, label: 'Oklahoma City — 7:00 AM' },
+              { lat: 35.4731, lng: -97.3195, label: 'Pops Soda Shop — ~7:30 AM' },
+              { lat: 35.5150, lng: -98.9673, label: 'Route 66 Museum — ~9:30 AM' },
+              { lat: 35.2260, lng: -100.2293, label: 'U-Drop Inn — ~11:00 AM' },
+              { lat: 35.2220, lng: -101.8313, label: 'Amarillo — ~12:30 PM' },
+              { lat: 35.1691, lng: -103.0916, label: 'Tucumcari — ~3:00 PM MT' },
+              { lat: 34.9507, lng: -105.7620, label: 'Albuquerque area — ~4:30 PM' },
+              { lat: 35.5281, lng: -108.7426, label: 'Gallup, NM — ~6:00 PM' }
+            ]
+          },
+          {
+            id: 'map-s-day4',
+            color: '#2d6a4f',
+            waypoints: [
+              { lat: 35.5281, lng: -108.7426, label: 'Gallup, NM — 4:00 AM' },
+              { lat: 35.0800, lng: -109.7900, label: 'Painted Desert — ~5:45 AM' },
+              { lat: 35.0244, lng: -110.6974, label: 'Winslow, AZ — ~6:15 AM' },
+              { lat: 35.1983, lng: -111.6513, label: 'Flagstaff, AZ — ~7:00 AM' },
+              { lat: 34.5652, lng: -111.8558, label: 'Sedona area (I-17) — ~7:45 AM' },
+              { lat: 33.4373, lng: -112.0120, label: 'PHX Airport — ~9:00 AM' }
+            ]
+          }
         ]
       },
-      {
-        id: 'day2',
-        color: '#e94560',
-        waypoints: [
-          { lat: 36.1628, lng: -85.5016, label: 'Cookeville, TN — 7:00 AM' },
-          { lat: 36.1627, lng: -86.7816, label: 'Nashville, TN — ~8:15 AM' },
-          { lat: 35.1495, lng: -90.0490, label: 'Memphis, TN — ~11:00 AM' },
-          { lat: 34.7465, lng: -92.2896, label: 'Little Rock, AR — ~12:30 PM' },
-          { lat: 35.2226, lng: -94.3993, label: 'Fort Smith, AR — ~3:00 PM' },
-          { lat: 35.4676, lng: -97.5164, label: 'Oklahoma City — ~5:00 PM' }
-        ]
-      },
-      {
-        id: 'day3',
-        color: '#0f3460',
-        waypoints: [
-          { lat: 35.4676, lng: -97.5164, label: 'Oklahoma City — 7:00 AM' },
-          { lat: 35.4731, lng: -97.3195, label: 'Pops Soda Shop — ~7:30 AM' },
-          { lat: 35.5150, lng: -98.9673, label: 'Route 66 Museum — ~9:30 AM' },
-          { lat: 35.2260, lng: -100.2293, label: 'U-Drop Inn — ~11:00 AM' },
-          { lat: 35.2220, lng: -101.8313, label: 'Amarillo — ~12:30 PM' },
-          { lat: 35.1691, lng: -103.0916, label: 'Tucumcari — ~3:00 PM MT' },
-          { lat: 34.9507, lng: -105.7620, label: 'Albuquerque area — ~4:30 PM' },
-          { lat: 35.5281, lng: -108.7426, label: 'Gallup, NM — ~6:00 PM' }
-        ]
-      },
-      {
-        id: 'day4',
-        color: '#2d6a4f',
-        waypoints: [
-          { lat: 35.5281, lng: -108.7426, label: 'Gallup, NM — 4:00 AM' },
-          { lat: 35.0800, lng: -109.7900, label: 'Painted Desert — ~5:45 AM' },
-          { lat: 35.0244, lng: -110.6974, label: 'Winslow, AZ — ~6:15 AM' },
-          { lat: 35.1983, lng: -111.6513, label: 'Flagstaff, AZ — ~7:00 AM' },
-          { lat: 34.5652, lng: -111.8558, label: 'Sedona area (I-17) — ~7:45 AM' },
-          { lat: 33.4373, lng: -112.0120, label: 'PHX Airport — ~9:00 AM' }
+      north: {
+        overview: 'overview-map-north',
+        days: [
+          {
+            id: 'map-n-day1',
+            color: '#1a1a2e',
+            waypoints: [
+              { lat: 40.7128, lng: -74.0060, label: 'New York City — 5:00 AM' },
+              { lat: 40.0381, lng: -76.3055, label: 'Lancaster, PA — ~7:00 AM' },
+              { lat: 39.9276, lng: -78.2346, label: 'Breezewood, PA — ~9:30 AM' },
+              { lat: 39.9612, lng: -82.9988, label: 'Columbus, OH — ~12:30 PM' },
+              { lat: 39.7589, lng: -84.1916, label: 'Dayton, OH — ~2:00 PM' },
+              { lat: 39.7684, lng: -86.1581, label: 'Indianapolis — ~3:15 PM CT' }
+            ]
+          },
+          {
+            id: 'map-n-day2',
+            color: '#e94560',
+            waypoints: [
+              { lat: 39.7684, lng: -86.1581, label: 'Indianapolis — 7:00 AM' },
+              { lat: 39.4667, lng: -87.4139, label: 'Terre Haute, IN — ~8:15 AM' },
+              { lat: 38.6270, lng: -90.1994, label: 'St. Louis (Gateway Arch) — ~10:30 AM' },
+              { lat: 37.2090, lng: -93.2923, label: 'Springfield, MO — ~1:30 PM' },
+              { lat: 37.0842, lng: -94.5133, label: 'Joplin, MO — ~2:30 PM' },
+              { lat: 36.1540, lng: -95.9928, label: 'Tulsa, OK — ~4:00 PM' },
+              { lat: 35.4676, lng: -97.5164, label: 'Oklahoma City — ~5:30 PM' }
+            ]
+          },
+          {
+            id: 'map-n-day3',
+            color: '#0f3460',
+            waypoints: [
+              { lat: 35.4676, lng: -97.5164, label: 'Oklahoma City — 7:00 AM' },
+              { lat: 35.4731, lng: -97.3195, label: 'Pops Soda Shop — ~7:30 AM' },
+              { lat: 35.5150, lng: -98.9673, label: 'Route 66 Museum — ~9:30 AM' },
+              { lat: 35.2260, lng: -100.2293, label: 'U-Drop Inn — ~11:00 AM' },
+              { lat: 35.2220, lng: -101.8313, label: 'Amarillo — ~12:30 PM' },
+              { lat: 35.1691, lng: -103.0916, label: 'Tucumcari — ~3:00 PM MT' },
+              { lat: 34.9507, lng: -105.7620, label: 'Albuquerque area — ~4:30 PM' },
+              { lat: 35.5281, lng: -108.7426, label: 'Gallup, NM — ~6:00 PM' }
+            ]
+          },
+          {
+            id: 'map-n-day4',
+            color: '#2d6a4f',
+            waypoints: [
+              { lat: 35.5281, lng: -108.7426, label: 'Gallup, NM — 4:00 AM' },
+              { lat: 35.0800, lng: -109.7900, label: 'Painted Desert — ~5:45 AM' },
+              { lat: 35.0244, lng: -110.6974, label: 'Winslow, AZ — ~6:15 AM' },
+              { lat: 35.1983, lng: -111.6513, label: 'Flagstaff, AZ — ~7:00 AM' },
+              { lat: 34.5652, lng: -111.8558, label: 'Sedona area (I-17) — ~7:45 AM' },
+              { lat: 33.4373, lng: -112.0120, label: 'PHX Airport — ~9:00 AM' }
+            ]
+          }
         ]
       }
-    ];
+    };
 
-    // Overview map
-    const overviewMap = L.map('overview-map', {
-      scrollWheelZoom: false,
-      attributionControl: false
-    }).setView([36.5, -95], 5);
+    // ---- MAP RENDERING ----
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      maxZoom: 19
-    }).addTo(overviewMap);
+    const maps = {};
 
-    days.forEach((day, i) => {
-      const latlngs = day.waypoints.map(w => [w.lat, w.lng]);
-      L.polyline(latlngs, { color: day.color, weight: 3, opacity: 0.8 }).addTo(overviewMap);
+    function renderMaps(routeKey) {
+      const route = routeData[routeKey];
 
-      // Start marker
-      const startWp = day.waypoints[0];
-      if (i === 0) {
-        L.circleMarker([startWp.lat, startWp.lng], {
-          radius: 7, fillColor: day.color, color: '#fff', weight: 2, fillOpacity: 1
-        }).bindTooltip(startWp.label, { permanent: true, direction: 'top', className: 'overview-label' }).addTo(overviewMap);
+      // Overview map
+      if (maps[route.overview]) {
+        maps[route.overview].remove();
       }
-      // End marker
-      const endWp = day.waypoints[day.waypoints.length - 1];
-      L.circleMarker([endWp.lat, endWp.lng], {
-        radius: 7, fillColor: day.color, color: '#fff', weight: 2, fillOpacity: 1
-      }).bindTooltip(endWp.label, { permanent: true, direction: 'top', className: 'overview-label' }).addTo(overviewMap);
-    });
-
-    // Fit bounds
-    const allPoints = days.flatMap(d => d.waypoints.map(w => [w.lat, w.lng]));
-    overviewMap.fitBounds(allPoints, { padding: [40, 40] });
-
-    // Day maps
-    days.forEach(day => {
-      const map = L.map(`map-${day.id}`, {
+      const overviewMap = L.map(route.overview, {
         scrollWheelZoom: false,
         attributionControl: false
       });
+      maps[route.overview] = overviewMap;
 
       L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         maxZoom: 19
-      }).addTo(map);
+      }).addTo(overviewMap);
 
-      const latlngs = day.waypoints.map(w => [w.lat, w.lng]);
-      L.polyline(latlngs, { color: day.color, weight: 4, opacity: 0.8 }).addTo(map);
+      route.days.forEach((day, i) => {
+        const latlngs = day.waypoints.map(w => [w.lat, w.lng]);
+        L.polyline(latlngs, { color: day.color, weight: 3, opacity: 0.8 }).addTo(overviewMap);
 
-      day.waypoints.forEach((wp, i) => {
-        const isEndpoint = i === 0 || i === day.waypoints.length - 1;
-        L.circleMarker([wp.lat, wp.lng], {
-          radius: isEndpoint ? 8 : 5,
-          fillColor: isEndpoint ? day.color : '#fff',
-          color: day.color,
-          weight: 2,
-          fillOpacity: isEndpoint ? 1 : 0.8
-        }).bindTooltip(wp.label, { direction: 'top' }).addTo(map);
+        if (i === 0) {
+          const startWp = day.waypoints[0];
+          L.circleMarker([startWp.lat, startWp.lng], {
+            radius: 7, fillColor: day.color, color: '#fff', weight: 2, fillOpacity: 1
+          }).bindTooltip(startWp.label, { permanent: true, direction: 'top' }).addTo(overviewMap);
+        }
+        const endWp = day.waypoints[day.waypoints.length - 1];
+        L.circleMarker([endWp.lat, endWp.lng], {
+          radius: 7, fillColor: day.color, color: '#fff', weight: 2, fillOpacity: 1
+        }).bindTooltip(endWp.label, { permanent: true, direction: 'top' }).addTo(overviewMap);
       });
 
-      map.fitBounds(latlngs, { padding: [30, 30] });
-    });
+      const allPoints = route.days.flatMap(d => d.waypoints.map(w => [w.lat, w.lng]));
+      overviewMap.fitBounds(allPoints, { padding: [40, 40] });
+
+      // Day maps
+      route.days.forEach(day => {
+        if (maps[day.id]) {
+          maps[day.id].remove();
+        }
+        const map = L.map(day.id, {
+          scrollWheelZoom: false,
+          attributionControl: false
+        });
+        maps[day.id] = map;
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+          maxZoom: 19
+        }).addTo(map);
+
+        const latlngs = day.waypoints.map(w => [w.lat, w.lng]);
+        L.polyline(latlngs, { color: day.color, weight: 4, opacity: 0.8 }).addTo(map);
+
+        day.waypoints.forEach((wp, i) => {
+          const isEndpoint = i === 0 || i === day.waypoints.length - 1;
+          L.circleMarker([wp.lat, wp.lng], {
+            radius: isEndpoint ? 8 : 5,
+            fillColor: isEndpoint ? day.color : '#fff',
+            color: day.color,
+            weight: 2,
+            fillOpacity: isEndpoint ? 1 : 0.8
+          }).bindTooltip(wp.label, { direction: 'top' }).addTo(map);
+        });
+
+        map.fitBounds(latlngs, { padding: [30, 30] });
+      });
+    }
+
+    // ---- ROUTE SWITCHING ----
+
+    function switchRoute(routeKey) {
+      document.querySelectorAll('.route-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.route-btn').forEach(el => el.classList.remove('active'));
+
+      document.getElementById('route-' + routeKey).classList.add('active');
+      document.getElementById('btn-' + routeKey).classList.add('active');
+
+      // Render maps after the container is visible (Leaflet needs visible containers)
+      setTimeout(() => renderMaps(routeKey), 50);
+    }
+
+    // Initial render
+    renderMaps('south');
   </script>
 </body>
 </html>
