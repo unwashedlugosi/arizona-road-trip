@@ -233,6 +233,49 @@
     .hotel-info p { font-size: 0.95rem; }
     .hotel-info a { color: #0f3460; }
 
+    .gps-card {
+      background: #1a1a2e;
+      color: #f5f1eb;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .gps-card .gps-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .gps-card .gps-label {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.5;
+      margin-bottom: 2px;
+    }
+
+    .gps-card .gps-destination {
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .gps-card a {
+      color: rgba(233, 69, 96, 0.9);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.75rem;
+      margin-left: auto;
+      flex-shrink: 0;
+      padding: 6px 12px;
+      border: 1px solid rgba(233, 69, 96, 0.4);
+      border-radius: 6px;
+    }
+
     .day-divider { max-width: 120px; margin: 0 auto; border: none; border-top: 1px solid #ddd; }
 
     .arrival-section {
@@ -322,6 +365,14 @@
         <span><span class="stat-icon">&#9201;</span> ~9.5 hours</span>
         <span><span class="stat-icon">&#9788;</span> Depart 8:45 AM ET</span>
       </div>
+      <div class="gps-card">
+        <div class="gps-icon">&#9678;</div>
+        <div>
+          <div class="gps-label">Put in GPS before you leave</div>
+          <div class="gps-destination">Hampton Inn St. Louis Downtown at the Gateway Arch</div>
+        </div>
+        <a href="https://maps.apple.com/?daddr=Hampton+Inn+St.+Louis+Downtown+at+the+Gateway+Arch&saddr=Lamar,+PA&dirflg=d" target="_blank" rel="noopener">Open</a>
+      </div>
       <div id="map-a-day1" class="day-map"></div>
       <a class="directions-link" href="https://maps.apple.com/?daddr=St.+Louis,+MO&saddr=Lamar,+PA&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
       <p class="day-narrative">
@@ -378,6 +429,14 @@
         <span><span class="stat-icon">&#9673;</span> 700 miles</span>
         <span><span class="stat-icon">&#9201;</span> ~10 hours</span>
         <span><span class="stat-icon">&#9788;</span> Depart 7:00 AM CT</span>
+      </div>
+      <div class="gps-card">
+        <div class="gps-icon">&#9678;</div>
+        <div>
+          <div class="gps-label">Put in GPS before you leave</div>
+          <div class="gps-destination">Hampton Inn Amarillo West Medical Center, TX</div>
+        </div>
+        <a href="https://maps.apple.com/?daddr=Hampton+Inn+Amarillo+West+Medical+Center+TX&saddr=St.+Louis,+MO&dirflg=d" target="_blank" rel="noopener">Open</a>
       </div>
       <div id="map-a-day2" class="day-map"></div>
       <a class="directions-link" href="https://maps.apple.com/?daddr=Amarillo,+TX&saddr=St.+Louis,+MO&dirflg=d&via=Tulsa,+OK" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
@@ -441,6 +500,14 @@
         <span><span class="stat-icon">&#9201;</span> ~9.5 hours</span>
         <span><span class="stat-icon">&#9788;</span> Depart 7:00 AM CT</span>
       </div>
+      <div class="gps-card">
+        <div class="gps-icon">&#9678;</div>
+        <div>
+          <div class="gps-label">Put in GPS before you leave</div>
+          <div class="gps-destination">Hampton Inn Phoenix Airport / Tempe, AZ</div>
+        </div>
+        <a href="https://maps.apple.com/?daddr=Hampton+Inn+Phoenix+Airport+Tempe+AZ&saddr=Amarillo,+TX&dirflg=d" target="_blank" rel="noopener">Open</a>
+      </div>
       <div id="map-a-day3" class="day-map"></div>
       <a class="directions-link" href="https://maps.apple.com/?daddr=Tempe,+AZ&saddr=Amarillo,+TX&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
       <p class="day-narrative">
@@ -503,6 +570,14 @@
         <span><span class="stat-icon">&#9201;</span> ~15 minutes</span>
         <span><span class="stat-icon">&#9788;</span> Sleep in</span>
       </div>
+      <div class="gps-card">
+        <div class="gps-icon">&#9678;</div>
+        <div>
+          <div class="gps-label">Put in GPS before you leave</div>
+          <div class="gps-destination">Phoenix Sky Harbor Airport, Terminal 3</div>
+        </div>
+        <a href="https://maps.apple.com/?daddr=Phoenix+Sky+Harbor+Airport,+AZ&saddr=Hampton+Inn+Phoenix+Airport+Tempe+AZ&dirflg=d" target="_blank" rel="noopener">Open</a>
+      </div>
       <div id="map-a-day4" class="day-map"></div>
       <a class="directions-link" href="https://maps.apple.com/?daddr=Phoenix+Sky+Harbor+Airport,+AZ&saddr=Hampton+Inn+Phoenix+Airport+Tempe+AZ&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
       <p class="day-narrative">
@@ -564,6 +639,14 @@
         <span><span class="stat-icon">&#9673;</span> 750 miles</span>
         <span><span class="stat-icon">&#9201;</span> ~11 hours</span>
         <span><span class="stat-icon">&#9788;</span> Depart 8:45 AM ET</span>
+      </div>
+      <div class="gps-card">
+        <div class="gps-icon">&#9678;</div>
+        <div>
+          <div class="gps-label">Put in GPS before you leave</div>
+          <div class="gps-destination">Hampton Inn Springfield, MO</div>
+        </div>
+        <a href="https://maps.apple.com/?daddr=Hampton+Inn+Springfield+MO&saddr=Lamar,+PA&dirflg=d" target="_blank" rel="noopener">Open</a>
       </div>
       <div id="map-b-day1" class="day-map"></div>
       <a class="directions-link" href="https://maps.apple.com/?daddr=Springfield,+MO&saddr=Lamar,+PA&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
@@ -631,6 +714,14 @@
         <span><span class="stat-icon">&#9673;</span> 540 miles</span>
         <span><span class="stat-icon">&#9201;</span> ~8 hours</span>
         <span><span class="stat-icon">&#9788;</span> Depart 8:00 AM CT</span>
+      </div>
+      <div class="gps-card">
+        <div class="gps-icon">&#9678;</div>
+        <div>
+          <div class="gps-label">Put in GPS before you leave</div>
+          <div class="gps-destination">Hampton Inn Amarillo West Medical Center, TX</div>
+        </div>
+        <a href="https://maps.apple.com/?daddr=Hampton+Inn+Amarillo+West+Medical+Center+TX&saddr=Springfield,+MO&dirflg=d" target="_blank" rel="noopener">Open</a>
       </div>
       <div id="map-b-day2" class="day-map"></div>
       <a class="directions-link" href="https://maps.apple.com/?daddr=Amarillo,+TX&saddr=Springfield,+MO&dirflg=d&via=Tulsa,+OK" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
@@ -704,6 +795,14 @@
         <span><span class="stat-icon">&#9201;</span> ~9.5 hours</span>
         <span><span class="stat-icon">&#9788;</span> Depart 7:00 AM CT</span>
       </div>
+      <div class="gps-card">
+        <div class="gps-icon">&#9678;</div>
+        <div>
+          <div class="gps-label">Put in GPS before you leave</div>
+          <div class="gps-destination">Hampton Inn Phoenix Airport / Tempe, AZ</div>
+        </div>
+        <a href="https://maps.apple.com/?daddr=Hampton+Inn+Phoenix+Airport+Tempe+AZ&saddr=Amarillo,+TX&dirflg=d" target="_blank" rel="noopener">Open</a>
+      </div>
       <div id="map-b-day3" class="day-map"></div>
       <a class="directions-link" href="https://maps.apple.com/?daddr=Tempe,+AZ&saddr=Amarillo,+TX&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
       <p class="day-narrative">
@@ -765,6 +864,14 @@
         <span><span class="stat-icon">&#9673;</span> 5 miles</span>
         <span><span class="stat-icon">&#9201;</span> ~15 minutes</span>
         <span><span class="stat-icon">&#9788;</span> Sleep in</span>
+      </div>
+      <div class="gps-card">
+        <div class="gps-icon">&#9678;</div>
+        <div>
+          <div class="gps-label">Put in GPS before you leave</div>
+          <div class="gps-destination">Phoenix Sky Harbor Airport, Terminal 3</div>
+        </div>
+        <a href="https://maps.apple.com/?daddr=Phoenix+Sky+Harbor+Airport,+AZ&saddr=Hampton+Inn+Phoenix+Airport+Tempe+AZ&dirflg=d" target="_blank" rel="noopener">Open</a>
       </div>
       <div id="map-b-day4" class="day-map"></div>
       <a class="directions-link" href="https://maps.apple.com/?daddr=Phoenix+Sky+Harbor+Airport,+AZ&saddr=Hampton+Inn+Phoenix+Airport+Tempe+AZ&dirflg=d" target="_blank" rel="noopener">Open in Apple Maps &rarr;</a>
