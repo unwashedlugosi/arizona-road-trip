@@ -152,10 +152,11 @@
       line-height: 1.2; text-align: center; color: white; flex-shrink: 0;
     }
 
-    .day-1 .day-badge { background: #1a1a2e; }
-    .day-2 .day-badge { background: #e94560; }
-    .day-3 .day-badge { background: #0f3460; }
-    .day-4 .day-badge { background: #2d6a4f; }
+    .day-1 .day-badge { background: #888; }
+    .day-2 .day-badge { background: #1a1a2e; }
+    .day-3 .day-badge { background: #e94560; }
+    .day-4 .day-badge { background: #0f3460; }
+    .day-5 .day-badge { background: #2d6a4f; }
 
     .day-header-text h2 { font-size: 1.5rem; font-weight: 400; }
 
@@ -310,7 +311,7 @@
 
   <div class="hero">
     <h1>Lamar, PA &rarr; Arizona</h1>
-    <div class="subtitle">March 12&ndash;15, 2026</div>
+    <div class="subtitle">March 11&ndash;15, 2026</div>
     <div class="status-badge">On the Road</div>
   </div>
 
@@ -323,8 +324,8 @@
     </button>
     <button class="route-btn" onclick="switchRoute('frontload')" id="btn-frontload">
       <div class="route-label">Option B</div>
-      <div class="route-name">Push Day 1, Easy Route 66</div>
-      <div class="route-desc">Overnight in Springfield, MO &amp; Amarillo. Hard first day, but Friday is only 8 hours with tons of time for stops.</div>
+      <div class="route-name">Push Day 2, Easy Route 66</div>
+      <div class="route-desc">Overnight in Springfield, MO &amp; Amarillo. Hard day today, but Friday is only 8 hours with tons of time for stops.</div>
     </button>
   </div>
 
@@ -334,9 +335,9 @@
   <div class="route-content active" id="route-balanced">
 
     <div class="route-summary-bar">
-      <div><span class="stat-value">2,000</span> remaining miles</div>
-      <div><span class="stat-value">3</span> driving days</div>
-      <div><span class="stat-value">3</span> nights</div>
+      <div><span class="stat-value">2,230</span> total miles</div>
+      <div><span class="stat-value">5</span> days</div>
+      <div><span class="stat-value">4</span> nights</div>
       <div><span class="stat-value">9</span> states</div>
     </div>
 
@@ -344,17 +345,36 @@
       <div id="overview-map-balanced" class="overview-map"></div>
     </div>
 
-    <div class="completed-leg">
-      <div class="leg-card">
-        <h3>Completed &mdash; Wed Night, March 11</h3>
-        <p>New York &rarr; Lamar, PA &middot; ~230 miles &middot; Hampton Inn</p>
+    <!-- DAY 1 (completed) -->
+    <div class="day-section day-1" style="opacity: 0.5;">
+      <div class="day-header">
+        <div class="day-badge">Day<br>1</div>
+        <div class="day-header-text">
+          <div class="day-route">Wednesday, March 11</div>
+          <h2>New York &rarr; Lamar, PA</h2>
+        </div>
+      </div>
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 230 miles</span>
+      </div>
+      <p class="day-narrative">
+        Beat the Thursday morning traffic by leaving Wednesday night. Drove west on I-80 through New Jersey and into central Pennsylvania. Hampton Inn near Lamar.
+      </p>
+      <div class="hotel-card">
+        <div class="hotel-icon">&#9989;</div>
+        <div class="hotel-info">
+          <h4>Completed</h4>
+          <p>Hampton Inn, Lamar, PA</p>
+        </div>
       </div>
     </div>
 
-    <!-- DAY 1 -->
-    <div class="day-section day-1">
+    <hr class="day-divider">
+
+    <!-- DAY 2 -->
+    <div class="day-section day-2">
       <div class="day-header">
-        <div class="day-badge">Day<br>1</div>
+        <div class="day-badge">Day<br>2</div>
         <div class="day-header-text">
           <div class="day-route">Thursday, March 12</div>
           <h2>Lamar, PA &rarr; St. Louis</h2>
@@ -416,10 +436,10 @@
 
     <hr class="day-divider">
 
-    <!-- DAY 2 -->
-    <div class="day-section day-2">
+    <!-- DAY 3 -->
+    <div class="day-section day-3">
       <div class="day-header">
-        <div class="day-badge">Day<br>2</div>
+        <div class="day-badge">Day<br>3</div>
         <div class="day-header-text">
           <div class="day-route">Friday, March 13</div>
           <h2>St. Louis &rarr; Amarillo, TX</h2>
@@ -486,10 +506,10 @@
 
     <hr class="day-divider">
 
-    <!-- DAY 3 -->
-    <div class="day-section day-3">
+    <!-- DAY 4 -->
+    <div class="day-section day-4">
       <div class="day-header">
-        <div class="day-badge">Day<br>3</div>
+        <div class="day-badge">Day<br>4</div>
         <div class="day-header-text">
           <div class="day-route">Saturday, March 14</div>
           <h2>Amarillo &rarr; Tempe, AZ</h2>
@@ -556,10 +576,10 @@
 
     <hr class="day-divider">
 
-    <!-- DAY 4 -->
-    <div class="day-section day-4">
+    <!-- DAY 5 -->
+    <div class="day-section day-5">
       <div class="day-header">
-        <div class="day-badge">Day<br>4</div>
+        <div class="day-badge">Day<br>5</div>
         <div class="day-header-text">
           <div class="day-route">Sunday, March 15</div>
           <h2>Hotel &rarr; PHX Airport</h2>
@@ -609,9 +629,9 @@
   <div class="route-content" id="route-frontload">
 
     <div class="route-summary-bar">
-      <div><span class="stat-value">1,950</span> remaining miles</div>
-      <div><span class="stat-value">3</span> driving days</div>
-      <div><span class="stat-value">3</span> nights</div>
+      <div><span class="stat-value">2,180</span> total miles</div>
+      <div><span class="stat-value">5</span> days</div>
+      <div><span class="stat-value">4</span> nights</div>
       <div><span class="stat-value">9</span> states</div>
     </div>
 
@@ -619,17 +639,36 @@
       <div id="overview-map-frontload" class="overview-map"></div>
     </div>
 
-    <div class="completed-leg">
-      <div class="leg-card">
-        <h3>Completed &mdash; Wed Night, March 11</h3>
-        <p>New York &rarr; Lamar, PA &middot; ~230 miles &middot; Hampton Inn</p>
+    <!-- DAY 1 (completed) -->
+    <div class="day-section day-1" style="opacity: 0.5;">
+      <div class="day-header">
+        <div class="day-badge">Day<br>1</div>
+        <div class="day-header-text">
+          <div class="day-route">Wednesday, March 11</div>
+          <h2>New York &rarr; Lamar, PA</h2>
+        </div>
+      </div>
+      <div class="day-stats">
+        <span><span class="stat-icon">&#9673;</span> 230 miles</span>
+      </div>
+      <p class="day-narrative">
+        Beat the Thursday morning traffic by leaving Wednesday night. Drove west on I-80 through New Jersey and into central Pennsylvania. Hampton Inn near Lamar.
+      </p>
+      <div class="hotel-card">
+        <div class="hotel-icon">&#9989;</div>
+        <div class="hotel-info">
+          <h4>Completed</h4>
+          <p>Hampton Inn, Lamar, PA</p>
+        </div>
       </div>
     </div>
 
-    <!-- DAY 1 -->
-    <div class="day-section day-1">
+    <hr class="day-divider">
+
+    <!-- DAY 2 -->
+    <div class="day-section day-2">
       <div class="day-header">
-        <div class="day-badge">Day<br>1</div>
+        <div class="day-badge">Day<br>2</div>
         <div class="day-header-text">
           <div class="day-route">Thursday, March 12</div>
           <h2>Lamar, PA &rarr; Springfield, MO</h2>
@@ -701,10 +740,10 @@
 
     <hr class="day-divider">
 
-    <!-- DAY 2 -->
-    <div class="day-section day-2">
+    <!-- DAY 3 -->
+    <div class="day-section day-3">
       <div class="day-header">
-        <div class="day-badge">Day<br>2</div>
+        <div class="day-badge">Day<br>3</div>
         <div class="day-header-text">
           <div class="day-route">Friday, March 13</div>
           <h2>Springfield &rarr; Amarillo, TX</h2>
@@ -781,10 +820,10 @@
 
     <hr class="day-divider">
 
-    <!-- DAY 3 -->
-    <div class="day-section day-3">
+    <!-- DAY 4 -->
+    <div class="day-section day-4">
       <div class="day-header">
-        <div class="day-badge">Day<br>3</div>
+        <div class="day-badge">Day<br>4</div>
         <div class="day-header-text">
           <div class="day-route">Saturday, March 14</div>
           <h2>Amarillo &rarr; Tempe, AZ</h2>
@@ -851,10 +890,10 @@
 
     <hr class="day-divider">
 
-    <!-- DAY 4 -->
-    <div class="day-section day-4">
+    <!-- DAY 5 -->
+    <div class="day-section day-5">
       <div class="day-header">
-        <div class="day-badge">Day<br>4</div>
+        <div class="day-badge">Day<br>5</div>
         <div class="day-header-text">
           <div class="day-route">Sunday, March 15</div>
           <h2>Hotel &rarr; PHX Airport</h2>
